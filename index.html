@@ -264,131 +264,20 @@ body{background:#fff;color:var(--text);overflow-x:hidden;direction:rtl;}
   </div>
 </section>
 
-<!-- ====== مكتبة خاصة لعائلة نعومة ====== -->
-<div id="familyLibraryContainer" style="width:100%; max-width:900px; margin:50px auto; text-align:center;">
-  <h2 style="color:var(--accent); margin-bottom:20px;">عائلة نعومة - الدخول الخاص</h2>
-  <input type="password" id="familyCodeInput" placeholder="أدخل رمزك السري" style="padding:10px 15px; font-size:16px;">
-  <button id="enterLibraryBtn" style="padding:10px 20px; font-size:16px; margin-left:10px;">دخول</button>
-
-  <div id="libraryCanvas" style="width:100%; height:500px; margin-top:30px; display:none; border:1px solid #ccc;"></div>
-</div>
-
-<script>
-(function(){
-  // بيانات المنتجات للعرض بعد الدخول
-  const products = [
-    { name: "كريم ترطيب", discount: "20%", color: "#ff6384" },
-    { name: "صابون الغار", discount: "15%", color: "#36a2eb" },
-    { name: "زيوت طبيعية", discount: "10%", color: "#ffce56" },
-    { name: "أقنعة الوجه", discount: "25%", color: "#4bc0c0" },
-    { name: "مكملات", discount: "30%", color: "#9966ff" },
-  ];
-
-  const libraryContainer = document.getElementById("libraryCanvas");
-  const enterBtn = document.getElementById("enterLibraryBtn");
-  const codeInput = document.getElementById("familyCodeInput");
-
-  // الرمز السري الخاص
-  const FAMILY_CODE = "NA3OMA2025";
-
-  enterBtn.addEventListener("click", function(){
-    const entered = codeInput.value.trim();
-    if(entered === FAMILY_CODE){
-      alert("تم الدخول بنجاح!");
-      codeInput.style.display = "none";
-      enterBtn.style.display = "none";
-      libraryContainer.style.display = "block";
-      createLibrary();
-    } else {
-      alert("الرمز غير صحيح!");
-    }
-  });
-
-  function createLibrary(){
-    // إنشاء Canvas
-    const canvas = document.createElement("canvas");
-    canvas.width = libraryContainer.clientWidth;
-    canvas.height = libraryContainer.clientHeight;
-    libraryContainer.appendChild(canvas);
-    const ctx = canvas.getContext("2d");
-
-    // إعداد الرسوم البسيطة (مكعبات)
-    const cubeWidth = 80;
-    const spacing = 30;
-    const baseY = canvas.height - 50;
-
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-
-      products.forEach((p,i)=>{
-        const x = i*(cubeWidth+spacing) + spacing;
-        const height = parseInt(p.discount) * 3; // ارتفاع حسب الخصم
-        ctx.fillStyle = p.color;
-        ctx.fillRect(x, baseY-height, cubeWidth, height);
-        ctx.fillStyle = "#000";
-        ctx.font = "14px Arial";
-        ctx.fillText(p.name, x, baseY+15);
-        ctx.fillText(p.discount, x, baseY-height-5);
-      });
-
-      requestAnimationFrame(draw);
-    }
-    draw();
-  }
-
-})();
-</script>
-
-
-
-
-
-
+<!-- ====== قسم التحليلات Chart.js ====== -->
+<section class="analytics" data-aos="fade-up">
+  <h2 style="text-align:center;color:var(--accent);margin-bottom:24px;">إحصاءات المبيعات</h2>
+  <div class="container">
+    <canvas id="salesChart" style="max-width:900px;margin:0 auto;display:block;"></canvas>
+  </div>
+</section>
 
 <!-- ====== قسم Babylon.js 3D ====== -->
 <section class="babylon-section" data-aos="fade-up">
   <h2 style="color:var(--accent);margin-bottom:16px;">عرض 3D تفاعلي</h2>
   <p style="margin-bottom:12px;">تجربة بسيطة لمجسم ثلاثي الأبعاد يمكن تدويره وسحبه بالفأرة.</p>
-  <canvas id="renderCanvas" style="width:100%; height:500px; border:1px solid #ccc;"></canvas>
+  <canvas id="renderCanvas"></canvas>
 </section>
-
-<!-- ====== استدعاء Babylon.js ====== -->
-<script src="https://cdn.babylonjs.com/babylon.js"></script>
-<script>
-  // الحصول على عنصر الكانفاس
-  const canvas = document.getElementById("renderCanvas");
-
-  // إنشاء المحرك
-  const engine = new BABYLON.Engine(canvas, true);
-
-  // إنشاء المشهد
-  const scene = new BABYLON.Scene(engine);
-
-  // إضافة كاميرا يمكن تحريكها
-  const camera = new BABYLON.ArcRotateCamera("camera", 
-                     Math.PI / 4, Math.PI / 4, 6, 
-                     new BABYLON.Vector3(0,0,0), scene);
-  camera.attachControl(canvas, true);
-
-  // إضافة إضاءة
-  const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1,1,0), scene);
-
-  // إنشاء مجسم بسيط (صندوق)
-  const box = BABYLON.MeshBuilder.CreateBox("box", {size:2}, scene);
-
-  // تشغيل حلقة العرض
-  engine.runRenderLoop(() => {
-    scene.render();
-  });
-
-  // تعديل حجم المحرك عند تغيير حجم النافذة
-  window.addEventListener("resize", () => {
-    engine.resize();
-  });
-</script>
-
-
-
 
 <footer class="footer">
   <div class="column">
