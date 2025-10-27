@@ -22,6 +22,46 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/6.3.7/tippy.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.4/locomotive-scroll.css"/>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  /* إصلاح التنسيق في الهواتف */
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* يمنع التمدد الأفقي */
+  }
+
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  section, div, header, footer {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  /* تحسين المظهر العام للهاتف */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+
+    h1, h2, h3 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    button, a {
+      font-size: 1rem;
+      padding: 10px 16px;
+    }
+  }
+</style>
+
+
+
 <style>
 :root{
   --accent:#f39c12;--muted:#f6f6f7;--text:#222;
@@ -132,6 +172,9 @@ body{background:#fff;color:var(--text);overflow-x:hidden;direction:rtl;}
 .price{color:var(--accent);font-weight:700;font-size:18px;}
 .btn-buy{background:linear-gradient(90deg,#f39c12,#e67e22);color:white;border:none;border-radius:50px;padding:8px 20px;margin-top:8px;transition:.3s;}
 .btn-buy:hover{opacity:.9;}
+
+
+
 
 /* ====== قسم الرسم البياني ====== */
 .analytics{padding:40px 20px;background:#fff;}
